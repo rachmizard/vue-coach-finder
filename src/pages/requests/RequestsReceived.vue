@@ -5,11 +5,12 @@
         <tr v-for="(data, index) in data" :key="index">
           <td>{{ data.id }}</td>
           <td>{{ data.userEmail }}</td>
-          <td>{{ data.coach.id }}</td>
           <td>
             <base-button link :to="redirectCoachDetail(data.coach.id)">{{ data.coach.firstName + ' ' + data.coach.lastName }}</base-button>
           </td>
           <td>{{ data.message }}</td>
+          <td>{{ data.isPaid ? 'Yes' : 'No' }}</td>
+          <td>{{ data.isAccepted ? 'Yes' : 'No' }}</td>
         </tr>
       </base-table>
     </base-card>
@@ -23,9 +24,10 @@ export default {
       columns: [
         'ID',
         'Email',
-        'Coach ID',
         'Coach Name',
-        'Message'
+        'Message',
+        'Paid',
+        'Accept'
       ]
     }
   },

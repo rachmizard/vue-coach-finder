@@ -7,6 +7,7 @@ import CoachRegister from './pages/coaches/CoachRegister.vue';
 
 import ContactCoach from './pages/requests/ContactCoach.vue';
 import RequestsReceived from './pages/requests/RequestsReceived.vue';
+import VerifyPayment from './pages/requests/VerifyPayment.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
                 {
                     path: 'contact',
                     component: ContactCoach,
+                    props: true
+                },
+                {
+                    path: 'payment',
+                    component: VerifyPayment,
                     props: true
                 }
             ]

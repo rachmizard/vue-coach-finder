@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 
 const state = {
-    coaches: []
+    coaches: [],
+    coach: null,
 }
 
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
     },
     'REGIST_COACH'(state, payload) {
         state.coaches.push(payload);
+    },
+    'SET_COACH'(state, payload) {
+        state.coach = payload
     }
 }
 
@@ -28,8 +32,13 @@ const actions = {
             photoUrl: 'https://picsum.photos/seed/' + uuidv4() + '/200/300',
         }
 
-        return axios.post(`https://vue-coach-956f1.firebaseio.com/coaches.json`, mapping).then(() => {
+        return axios.put(`https://vue-coach-956f1.firebaseio.com/coaches/${mapping.id}.json`, mapping).then(() => {
             commit('REGIST_COACH', mapping)
+        });
+    },
+    getDetailCoach: ({ commit }, id) => {
+        return axios.get(`https://vue-coach-956f1.firebaseio.com/coaches/${id}.json`).then((res) => {
+            commit('SET_COACH', res.data)
         });
     },
     setCoaches: ({ commit }) => {
@@ -59,6 +68,9 @@ const actions = {
 const getters = {
     getCoaches: (state) => {
         return state.coaches;
+    },
+    getCoach: (state) => {
+        return state.coach;
     }
 }
 

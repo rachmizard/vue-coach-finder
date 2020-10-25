@@ -12,12 +12,24 @@ export default {
   components: {
     contactCoachForm: ContactCoachForm,
   },
+  created() {
+    if(this.findRequests) {
+      this.$router.go(-1);
+    }
+  },
   computed: {
     getCoach() {
       const data = this.$store.getters.getCoaches.find(
         (coach) => coach.id === this.id
       );
       return data;
+    },
+    findRequests() {
+      return this.$store.getters.getRequests.find(
+        (req) => req.coach.id === this.id
+      )
+        ? true
+        : false;
     },
   },
   methods: {

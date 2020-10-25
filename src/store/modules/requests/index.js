@@ -11,7 +11,9 @@ const actions = {
             id: uuidv4(),
             coach: payload.coach,
             userEmail: payload.email,
-            message: payload.message
+            message: payload.message,
+            isAccepted: false,
+            isPaid: false
         }
         return axios.post('https://vue-coach-956f1.firebaseio.com/requests.json', newRequest).then(() => {
             commit('SAVE_REQUEST', newRequest)
@@ -26,7 +28,9 @@ const actions = {
                     id: response[key].id,
                     coach: response[key].coach,
                     userEmail: response[key].userEmail,
-                    message: response[key].message
+                    message: response[key].message,
+                    isAccepted: response[key].isAccepted,
+                    isPaid: response[key].isPaid
                 };
                 requests.push(coach);
             }

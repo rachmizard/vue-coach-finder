@@ -17,7 +17,7 @@
           :coach="coach"
         ></coach-item>
       </div>
-      <div class="row" v-else>
+      <div class="row" v-else-if="coaches.length === 0 && !isLoading">
         <p class="text-muted text-center">Data is not found.</p>
       </div>
     </div>
