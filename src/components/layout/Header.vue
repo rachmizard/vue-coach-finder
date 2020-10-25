@@ -17,7 +17,9 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <base-button link mode="navbar-brand" to="/">Find a Coach</base-button>
+            <base-button link mode="navbar-brand" to="/"
+              >Find a Coach</base-button
+            >
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,20 +30,21 @@
             <ul class="nav navbar-nav">
               <li>
                 <router-link to="/coaches"
-                  >All Coaches <span class="sr-only">(current)</span></router-link
+                  >All Coaches
+                  <span class="sr-only">(current)</span></router-link
                 >
               </li>
               <li>
-                <router-link to="/requests" 
-                  >Your Requests <span class="badge">{{ totalRequests }}</span></router-link>
+                <router-link to="/requests"
+                  >Your Requests
+                  <span class="badge">{{ isLoading ? `Loading..` : totalRequests }}</span></router-link
+                >
               </li>
               <li class="dropdown"></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <router-link to="/register" 
-                  >Register as Coach</router-link
-                >
+                <router-link to="/register">Register as Coach</router-link>
               </li>
               <li class="dropdown">
                 <a
@@ -70,13 +73,28 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: "Header",
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+  created() {
+    this.loadRequests();
+  },
   computed: {
     totalRequests() {
-      return this.$store.getters.getRequests.length
-    }
-  }
-}
+      return this.$store.getters.getRequests.length;
+    },
+  },
+  methods: {
+    async loadRequests() {
+      this.isLoading = true;
+      await this.$store.dispatch("setRequests");
+      this.isLoading = false;
+    },
+  },
+};
 </script>
 
 <style scoped>

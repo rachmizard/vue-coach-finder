@@ -1,5 +1,5 @@
 <template>
-  <base-card title="Filter">
+  <base-card title="Filter" icon="glyphicon glyphicon-search">
     <button @click="refreshCoaches" class="btn btn-sm btn-info"
       >Refresh
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>

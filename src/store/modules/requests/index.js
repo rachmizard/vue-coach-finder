@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const state = {
     requests: []
@@ -12,13 +13,34 @@ const actions = {
             userEmail: payload.email,
             message: payload.message
         }
-        commit('SAVE_REQUEST', newRequest)
+        return axios.post('https://vue-coach-956f1.firebaseio.com/requests.json', newRequest).then(() => {
+            commit('SAVE_REQUEST', newRequest)
+        })
+    },
+    setRequests: ({ commit }) => {
+        return axios.get('https://vue-coach-956f1.firebaseio.com/requests.json').then((res) => {
+            const response = res.data
+            const requests = [];
+            for (const key in response) {
+                const coach = {
+                    id: response[key].id,
+                    coach: response[key].coach,
+                    userEmail: response[key].userEmail,
+                    message: response[key].message
+                };
+                requests.push(coach);
+            }
+            commit('SET_REQUESTS', requests)
+        })
     }
 }
 
 const mutations = {
     'SAVE_REQUEST'(state, payload) {
         state.requests.push(payload)
+    },
+    'SET_REQUESTS'(state, payload) {
+        state.requests = payload;
     }
 }
 

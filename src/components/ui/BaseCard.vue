@@ -2,7 +2,7 @@
   <div>
     <div :class="className">
       <div class="panel-heading">
-        <h3 class="panel-title">{{ title }}</h3>
+        <h3 class="panel-title"><em v-if="icon" :class="icon"></em> {{ title }}</h3> 
       </div>
       <div class="panel-body">
         <slot></slot>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: "BaseCard",
-  props: ["title", "type"],
+  props: ["title", "type", "icon"],
   computed: {
     className() {
       var className = null;
