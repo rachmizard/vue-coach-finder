@@ -7,6 +7,10 @@ import baseComponent from './components/ui/index';
 
 Vue.config.productionTip = false
 
+Vue.filter('currency', (value) => {
+  return '$' + value.toLocaleString();
+})
+
 new Vue({
   router,
   store,

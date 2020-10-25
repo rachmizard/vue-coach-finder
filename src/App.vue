@@ -30,4 +30,12 @@ html {
 body {
   margin: 0;
 }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 </style>
+

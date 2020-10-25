@@ -39,6 +39,11 @@
               <li class="dropdown"></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li>
+                <router-link to="/register" 
+                  >Register as Coach</router-link
+                >
+              </li>
               <li class="dropdown">
                 <a
                   href="#"
