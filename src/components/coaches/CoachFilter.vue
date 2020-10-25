@@ -1,13 +1,19 @@
 <template>
   <base-card title="Filter">
+    <button @click="refreshCoaches" class="btn btn-sm btn-info"
+      >Refresh
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+    </button>
     <div class="checkbox">
       <label>
-        <input id="frontend" type="checkbox" checked @change="setFilter" /> Frontend
+        <input id="frontend" type="checkbox" checked @change="setFilter" />
+        Frontend
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input id="backend" type="checkbox" checked @change="setFilter" /> Backend
+        <input id="backend" type="checkbox" checked @change="setFilter" />
+        Backend
       </label>
     </div>
     <div class="checkbox">
@@ -22,7 +28,8 @@
     </div>
     <div class="checkbox">
       <label>
-        <input id="sa" type="checkbox" checked @change="setFilter" /> System Analyst
+        <input id="sa" type="checkbox" checked @change="setFilter" /> System
+        Analyst
       </label>
     </div>
     <div class="form-group">
@@ -50,7 +57,7 @@
 </template>
 <script>
 export default {
-  emits: ["change-filter"],
+  emits: ["change-filter", "refresh-coaches"],
   data() {
     return {
       filters: {
@@ -62,7 +69,7 @@ export default {
         search: null,
       },
       isLoading: false,
-      percentage: '45%'
+      percentage: "45%",
     };
   },
   methods: {
@@ -76,12 +83,15 @@ export default {
       };
 
       this.filters = updatedFilters;
-      this.percentage = '100%';
+      this.percentage = "100%";
       setTimeout(() => {
         this.$emit("change-filter", updatedFilters);
         this.isLoading = false;
       }, 500);
     },
+    refreshCoaches() {
+      this.$emit("refresh-coaches", true);
+    }
   },
 };
 </script>

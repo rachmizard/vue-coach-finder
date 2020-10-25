@@ -66,6 +66,24 @@
         v-model.trim="form.reTypePassword"
       />
     </div>
+    <div class="form-group">
+      <label for="areasOfExperienceCheckbox">Areas of Experience</label>
+      <div class="checkbox" id="areasOfExperienceCheckbox">
+        <label class="checkbox-inline">
+          <input v-model.trim="form.areas" value="frontend" type="checkbox" /> Front
+          end
+        </label>
+        <label class="checkbox-inline">
+          <input v-model.trim="form.areas" value="backend" type="checkbox" /> Back end
+        </label>
+        <label class="checkbox-inline">
+          <input v-model.trim="form.areas" value="mobile" type="checkbox" /> Mobile Dev
+        </label>
+        <label class="checkbox-inline">
+          <input v-model.trim="form.areas" value="ui/ux" type="checkbox" /> UI/UX
+        </label>
+      </div>
+    </div>
     <base-button mode="btn btn-default">Submit</base-button>
   </form>
 </template>
@@ -84,6 +102,7 @@ export default {
         email: null,
         phone: null,
         reTypePassword: null,
+        areas: []
       },
     };
   },

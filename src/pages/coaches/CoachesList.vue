@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-2">
-      <coach-filter @change-filter="setFilters"></coach-filter>
+      <coach-filter @refresh-coaches="loadCoaches" @change-filter="setFilters"></coach-filter>
     </div>
     <div class="col-md-10">
       <div class="row" v-if="coaches.length > 0">
@@ -32,43 +32,53 @@ export default {
         uiux: true,
         sa: true,
         mobile: true,
-        search: null
-      }
+        search: null,
+      },
     };
   },
   components: {
     coachItem: CoachItem,
     coachFilter: CoachFilter,
   },
+  created() {
+    this.loadCoaches();
+  },
   computed: {
     coaches() {
       const data = this.$store.getters.getCoaches;
-      return data.filter(coach => {
-        if(this.activeFilters.frontend && coach.areas.includes('frontend')) {
+      return data.filter((coach) => {
+        if (this.activeFilters.frontend && coach.areas.includes("frontend")) {
           return true;
         }
-        if(this.activeFilters.backend && coach.areas.includes('backend')) {
+        if (this.activeFilters.backend && coach.areas.includes("backend")) {
           return true;
         }
-        if(this.activeFilters.mobile && coach.areas.includes('mobile')) {
+        if (this.activeFilters.mobile && coach.areas.includes("mobile")) {
           return true;
         }
-        if(this.activeFilters.uiux && coach.areas.includes('ui/ux')) {
+        if (this.activeFilters.uiux && coach.areas.includes("ui/ux")) {
           return true;
         }
-        if(this.activeFilters.sa && coach.areas.includes('system analyst')) {
+        if (this.activeFilters.sa && coach.areas.includes("system analyst")) {
           return true;
         }
-        if(this.activeFilters.search !== '' && (coach.firstName.includes(this.activeFilters.search) || coach.lastName.includes(this.activeFilters.search))) {
+        if (
+          this.activeFilters.search !== "" &&
+          (coach.firstName.includes(this.activeFilters.search) ||
+            coach.lastName.includes(this.activeFilters.search))
+        ) {
           return true;
         }
         return false;
-      })
+      });
     },
   },
   methods: {
     setFilters(updatedFilters) {
-      this.activeFilters = updatedFilters
+      this.activeFilters = updatedFilters;
+    },
+    loadCoaches() {
+      this.$store.dispatch('setCoaches');
     }
   },
 };
