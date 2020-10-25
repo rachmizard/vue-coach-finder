@@ -4,6 +4,8 @@ const state = {
             id: '1',
             firstName: 'Rachmizard',
             lastName: 'Zimmy',
+            email: 'rachmizard11072000@gmail.com',
+            phone: '081384885881',
             areas: ['frontend', 'backend', 'system analyst'],
             description: "I'm Rachmizard and I have worked as a employee web developer for years.",
             hourlyRate: 30,
@@ -13,6 +15,8 @@ const state = {
             id: '2',
             firstName: 'Ismail',
             lastName: 'Azhafir',
+            email: 'azh.zhafir@gmail.com',
+            phone: '082372727272',
             areas: ['mobile', 'ui/ux'],
             description: "I'm Ismail and I have worked as a freelance mobile developer for years.",
             hourlyRate: 50,
@@ -22,6 +26,8 @@ const state = {
             id: '3',
             firstName: 'Alfian',
             lastName: 'Saniputra',
+            email: 'alfiansaniputra@gmail.com',
+            phone: '0892927262525',
             areas: ['frontend', 'ui/ux'],
             description: "I'm Alfian and I have worked as a freelance mobile developer for years. And also I currently active as a student in UNIKOM.",
             hourlyRate: 50,
@@ -33,11 +39,27 @@ const state = {
 const mutations = {
     'SET_COACHES'(state, payload) {
         state.coaches = payload
+    },
+    'REGIST_COACH'(state, payload) {
+        state.coaches.push(payload);
     }
 }
 
 const actions = {
-
+    registerCoach: ({commit}, payload) => {
+        const mapping = {
+            id: Math.random(),
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            email: payload.email,
+            phone: payload.phone,
+            areas: [],
+            description: "",
+            hourlyRate: 0,
+            photoUrl: null,
+        }
+        commit('REGIST_COACH', mapping)
+    }
 }
 
 const getters = {

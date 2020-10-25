@@ -4,6 +4,8 @@
       <base-thumbnail :photoUrl="coach.photoUrl">
         <h3 class="text-center">{{ fullName }}</h3>
         <p class="text-center">{{ coach.description }}</p>
+        <p class="text-center">{{ coach.phone }}</p>
+        <p class="text-center">{{ coach.email }}</p>
         <p class="text-center"><strong>Hourly Rate</strong> {{ coach.hourlyRate | currency }}</p>
         <base-badge v-for="(area, index) in coach.areas" :key="index">
           {{ area }}
