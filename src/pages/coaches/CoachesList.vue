@@ -31,8 +31,9 @@ export default {
         backend: false,
         uiux: false,
         sa: false,
-        mobile: false
-      },
+        mobile: false,
+        search: null
+      }
     };
   },
   components: {
@@ -58,6 +59,9 @@ export default {
         if(this.activeFilters.sa && coach.areas.includes('system analyst')) {
           return true;
         }
+        if(this.activeFilters.search !== '' && (coach.firstName.includes(this.activeFilters.search) || coach.lastName.includes(this.activeFilters.search))) {
+          return true;
+        }
         return false;
       })
     },
@@ -65,7 +69,7 @@ export default {
   methods: {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters
-    },
+    }
   },
 };
 </script>
