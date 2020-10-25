@@ -17,7 +17,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Find a Coach</a>
+            <base-button link mode="navbar-brand" to="/">Find a Coach</base-button>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -34,7 +34,6 @@
               <li>
                 <router-link to="/requests" 
                   >Your Requests <span class="badge">{{ totalRequests }}</span></router-link>
-                >
               </li>
               <li class="dropdown"></li>
             </ul>

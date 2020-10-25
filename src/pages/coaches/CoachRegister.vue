@@ -16,9 +16,9 @@ export default {
     coachFormRegistration: CoachFormRegistration,
   },
   methods: {
-    saveRegistration(payload) {
-      this.$store.dispatch('registerCoach', payload);
-      this.$router.replace('/coaches')
+    async saveRegistration(payload) {
+      await this.$store.dispatch('registerCoach', payload);
+      this.$router.push('/coaches')
     },
   },
 };

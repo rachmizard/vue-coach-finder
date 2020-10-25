@@ -1,7 +1,7 @@
 <template>
   <div class="col-sm-12">
     <div class="thumbnail">
-      <img :src="photoUrl" class="img-circle" alt="..." />
+      <img :src="photoUrl" class="img-rounded" alt="..." />
       <div class="caption">
         <slot></slot>
       </div>

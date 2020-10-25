@@ -1,9 +1,15 @@
 <template>
   <div class="row">
     <div class="col-md-2">
-      <coach-filter @refresh-coaches="loadCoaches" @change-filter="setFilters"></coach-filter>
+      <coach-filter
+        @refresh-coaches="loadCoaches"
+        @change-filter="setFilters"
+      ></coach-filter>
     </div>
     <div class="col-md-10">
+      <div v-if="isLoading" style="margin: 20px 20px;">
+        <base-spinner></base-spinner>
+      </div>
       <div class="row" v-if="coaches.length > 0">
         <coach-item
           v-for="(coach, index) in coaches"
@@ -26,6 +32,7 @@ export default {
   name: "CoachesList",
   data() {
     return {
+      isLoading: false,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -75,11 +82,14 @@ export default {
   },
   methods: {
     setFilters(updatedFilters) {
+      this.loadCoaches();
       this.activeFilters = updatedFilters;
     },
-    loadCoaches() {
-      this.$store.dispatch('setCoaches');
-    }
+    async loadCoaches() {
+      this.isLoading = true;
+      await this.$store.dispatch("setCoaches");
+      this.isLoading = false;
+    },
   },
 };
 </script>

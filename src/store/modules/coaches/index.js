@@ -28,31 +28,31 @@ const actions = {
             photoUrl: 'https://picsum.photos/seed/' + uuidv4() + '/200/300',
         }
 
-        axios.post(`https://vue-coach-956f1.firebaseio.com/coaches.json`, mapping);
-
-        commit('REGIST_COACH', mapping)
+        return axios.post(`https://vue-coach-956f1.firebaseio.com/coaches.json`, mapping).then(() => {
+            commit('REGIST_COACH', mapping)
+        });
     },
     setCoaches: ({ commit }) => {
-        axios.get('https://vue-coach-956f1.firebaseio.com/coaches.json')
-        .then(res => {
-            const response = res.data
-            const coaches = [];
-            for(const key in response) {
-                const coach = {
-                    id: response[key].id,
-                    firstName: response[key].firstName,
-                    lastName: response[key].lastName,
-                    email: response[key].email,
-                    phone: response[key].phone,
-                    areas: response[key].areas,
-                    description: response[key].description,
-                    hourlyRate: response[key].hourlyRate,
-                    photoUrl: response[key].photoUrl
-                };
-                coaches.push(coach);
-            }
-            commit('SET_COACHES', coaches)
-        });
+        return axios.get('https://vue-coach-956f1.firebaseio.com/coaches.json')
+            .then(res => {
+                const response = res.data
+                const coaches = [];
+                for (const key in response) {
+                    const coach = {
+                        id: response[key].id,
+                        firstName: response[key].firstName,
+                        lastName: response[key].lastName,
+                        email: response[key].email,
+                        phone: response[key].phone,
+                        areas: response[key].areas,
+                        description: response[key].description,
+                        hourlyRate: response[key].hourlyRate,
+                        photoUrl: response[key].photoUrl
+                    };
+                    coaches.push(coach);
+                }
+                commit('SET_COACHES', coaches)
+            });
     }
 }
 
