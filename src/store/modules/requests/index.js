@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const state = {
     requests: []
 }
@@ -5,8 +7,8 @@ const state = {
 const actions = {
     contactCoach: ({ commit }, payload) => {
         const newRequest = {
-            id: Math.random(),
-            coachId: payload.coachId,
+            id: uuidv4(),
+            coach: payload.coach,
             userEmail: payload.email,
             message: payload.message
         }

@@ -12,9 +12,9 @@
         <base-badge v-for="(area, index) in coach.areas" :key="index">
           {{ area }}
         </base-badge>
-        <p class="text-info">Interest? Contact now!</p>
+        <p v-if="!findRequests" class="text-info">Interest? Contact now!</p>
         <p>
-          <base-button v-scroll-to="'#contactForm'" mode="btn btn-primary" link :to="redirectCoachContact"
+          <base-button v-if="!findRequests" v-scroll-to="'#contactForm'" mode="btn btn-primary" link :to="redirectCoachContact"
             >Contact</base-button
           >
         </p>
@@ -42,6 +42,9 @@ export default {
     redirectCoachContact() {
       return "/coaches/" + this.coach.id + "/contact";
     },
+    findRequests() {
+      return this.$store.getters.getRequests.find(req => req.coach.id === this.coach.id) ? true : false;
+    }
   },
   created() {
     this.coach = this.$store.getters.getCoaches.find(

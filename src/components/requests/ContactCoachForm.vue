@@ -1,5 +1,9 @@
 <template>
-  <form ref="contactCoachForm" @submit.prevent="submitContact" autocomplete="off">
+  <form
+    ref="contactCoachForm"
+    @submit.prevent="submitContact"
+    autocomplete="off"
+  >
     <div class="form-group" :class="{ 'has-error': $v.form.email.$error }">
       <label for="exampleInputEmail1">Your Email address</label>
       <input
@@ -32,15 +36,16 @@ import { required, email } from "vuelidate/lib/validators";
 
 export default {
   emits: ["save-registration"],
-  props: ['coachId'],
+  props: ["coachId"],
   data() {
     return {
       form: {
         email: null,
-        message: null,
-        coachId: this.coachId,
+        message: null
       },
     };
+  },
+  computed: {
   },
   validations: {
     form: {
@@ -54,7 +59,7 @@ export default {
       if (this.$v.form.$invalid) return;
       this.$v.form.$reset();
       this.$emit("save-request", this.form);
-      this.$router.replace('/coaches');
+      this.$router.replace("/coaches");
     },
   },
 };

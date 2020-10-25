@@ -2,27 +2,27 @@
   <base-card title="Filter">
     <div class="checkbox">
       <label>
-        <input id="frontend" type="checkbox" @change="setFilter" /> Frontend
+        <input id="frontend" type="checkbox" checked @change="setFilter" /> Frontend
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input id="backend" type="checkbox" @change="setFilter" /> Backend
+        <input id="backend" type="checkbox" checked @change="setFilter" /> Backend
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input id="uiux" type="checkbox" @change="setFilter" /> UI/UX
+        <input id="uiux" type="checkbox" checked @change="setFilter" /> UI/UX
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input id="mobile" type="checkbox" @change="setFilter" /> Mobile
+        <input id="mobile" type="checkbox" checked @change="setFilter" /> Mobile
       </label>
     </div>
     <div class="checkbox">
       <label>
-        <input id="sa" type="checkbox" @change="setFilter" /> System Analyst
+        <input id="sa" type="checkbox" checked @change="setFilter" /> System Analyst
       </label>
     </div>
     <div class="form-group">
@@ -54,11 +54,11 @@ export default {
   data() {
     return {
       filters: {
-        frontend: false,
-        backend: false,
-        uiux: false,
-        sa: false,
-        mobile: false,
+        frontend: true,
+        backend: true,
+        uiux: true,
+        sa: true,
+        mobile: true,
         search: null,
       },
       isLoading: false,

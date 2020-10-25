@@ -12,9 +12,22 @@ export default {
   components: {
     contactCoachForm: ContactCoachForm,
   },
+  computed: {
+    getCoach() {
+      const data = this.$store.getters.getCoaches.find(
+        (coach) => coach.id === this.id
+      );
+      return data;
+    },
+  },
   methods: {
     saveContact(payload) {
-        this.$store.dispatch('contactCoach', payload)
+        const data = {
+            email: payload.email,
+            message: payload.message,
+            coach: this.getCoach        
+        }
+        this.$store.dispatch('contactCoach', data)
     },
   },
 };

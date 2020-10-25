@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const state = {
     coaches: [
         {
@@ -48,7 +50,7 @@ const mutations = {
 const actions = {
     registerCoach: ({commit}, payload) => {
         const mapping = {
-            id: Math.random(),
+            id: uuidv4(),
             firstName: payload.firstName,
             lastName: payload.lastName,
             email: payload.email,
@@ -56,7 +58,7 @@ const actions = {
             areas: [],
             description: "",
             hourlyRate: 0,
-            photoUrl: null,
+            photoUrl: 'https://picsum.photos/seed/'+  uuidv4() +'/200/300',
         }
         commit('REGIST_COACH', mapping)
     }

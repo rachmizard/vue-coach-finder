@@ -1,11 +1,14 @@
 <template>
   <div>
     <base-card title="Requests">
-      <base-table type="hover" :columns="columns">
+      <base-table type="striped" :columns="columns">
         <tr v-for="(data, index) in data" :key="index">
           <td>{{ data.id }}</td>
           <td>{{ data.userEmail }}</td>
-          <td>{{ data.coachId }}</td>
+          <td>{{ data.coach.id }}</td>
+          <td>
+            <base-button link :to="redirectCoachDetail(data.coach.id)">{{ data.coach.firstName + ' ' + data.coach.lastName }}</base-button>
+          </td>
           <td>{{ data.message }}</td>
         </tr>
       </base-table>
@@ -21,6 +24,7 @@ export default {
         'ID',
         'Email',
         'Coach ID',
+        'Coach Name',
         'Message'
       ]
     }
@@ -28,6 +32,11 @@ export default {
   computed: {
     data() {
       return this.$store.getters.getRequests
+    }
+  },
+  methods: {
+    redirectCoachDetail(id) {
+      return '/coaches/' + id;
     }
   }
 }

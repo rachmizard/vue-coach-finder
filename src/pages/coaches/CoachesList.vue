@@ -27,11 +27,11 @@ export default {
   data() {
     return {
       activeFilters: {
-        frontend: false,
-        backend: false,
-        uiux: false,
-        sa: false,
-        mobile: false,
+        frontend: true,
+        backend: true,
+        uiux: true,
+        sa: true,
+        mobile: true,
         search: null
       }
     };
