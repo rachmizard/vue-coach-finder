@@ -34,6 +34,18 @@
         @keyup="setFilter"
       />
     </div>
+    <div v-if="isLoading" class="progress">
+      <div
+        class="progress-bar progress-bar-striped active"
+        role="progressbar"
+        aria-valuenow="45"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        :style="{ width: percentage }"
+      >
+        <span class="sr-only">45% Complete</span>
+      </div>
+    </div>
   </base-card>
 </template>
 <script>
@@ -49,10 +61,13 @@ export default {
         mobile: false,
         search: null,
       },
+      isLoading: false,
+      percentage: '45%'
     };
   },
   methods: {
     setFilter(event) {
+      this.isLoading = true;
       const inputId = event.target.id;
       const isActive = event.target.checked;
       const updatedFilters = {
@@ -60,11 +75,11 @@ export default {
         [inputId]: isActive,
       };
 
-      console.log(updatedFilters);
-
       this.filters = updatedFilters;
+      this.percentage = '100%';
       setTimeout(() => {
         this.$emit("change-filter", updatedFilters);
+        this.isLoading = false;
       }, 500);
     },
   },

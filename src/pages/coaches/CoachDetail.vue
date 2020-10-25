@@ -6,14 +6,19 @@
         <p class="text-center">{{ coach.description }}</p>
         <p class="text-center">{{ coach.phone }}</p>
         <p class="text-center">{{ coach.email }}</p>
-        <p class="text-center"><strong>Hourly Rate</strong> {{ coach.hourlyRate | currency }}</p>
+        <p class="text-center">
+          <strong>Hourly Rate</strong> {{ coach.hourlyRate | currency }}
+        </p>
         <base-badge v-for="(area, index) in coach.areas" :key="index">
           {{ area }}
         </base-badge>
         <p class="text-info">Interest? Contact now!</p>
         <p>
-          <base-button mode="btn btn-primary">Contact</base-button>
+          <base-button mode="btn btn-primary" link :to="redirectCoachContact"
+            >Contact</base-button
+          >
         </p>
+        <router-view></router-view>
       </base-thumbnail>
     </base-card>
   </div>
@@ -34,13 +39,16 @@ export default {
     title() {
       return "Coach Detail";
     },
+    redirectCoachContact() {
+      return "/coaches/" + this.coach.id + "/contact";
+    },
   },
   created() {
     this.coach = this.$store.getters.getCoaches.find(
       (coach) => coach.id === this.id
     );
-    if(!this.coach) {
-      this.$router.replace('/coaches');
+    if (!this.coach) {
+      this.$router.replace("/coaches");
     }
   },
 };

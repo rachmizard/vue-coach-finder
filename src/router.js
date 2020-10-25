@@ -25,8 +25,9 @@ const routes = [
             props: true,
             children: [
                 {
-                    path: '/contact',
-                    component: ContactCoach
+                    path: 'contact',
+                    component: ContactCoach,
+                    props: true
                 }
             ]
         },

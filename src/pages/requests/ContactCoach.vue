@@ -1,5 +1,17 @@
 <template>
-    <div>
-        <h1>Contact Coach</h1>
-    </div>
+    <contact-coach-form></contact-coach-form>
 </template>
+<script>
+import ContactCoachForm from "../../components/requests/ContactCoachForm.vue";
+
+export default {
+  props: ["id"],
+  name: "ContactCoach",
+  components: {
+    contactCoachForm: ContactCoachForm,
+  },
+  methods: {
+    saveContact() {},
+  },
+};
+</script>

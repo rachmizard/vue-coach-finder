@@ -30,7 +30,7 @@
       </li>
       <li class="list-group-item">
         <div class="btn-group" role="group" aria-label="...">
-          <base-button mode="btn btn-primary">Contact</base-button>
+          <base-button mode="btn btn-primary" link :to="redirectCoachContact">Contact</base-button>
           <base-button mode="btn btn-info" link :to="viewDetail">View Detail</base-button>
         </div>
       </li>
@@ -46,7 +46,10 @@ export default {
     },
     viewDetail() {
         return '/coaches/' + this.coach.id
-    }
+    },
+    redirectCoachContact() {
+      return "/coaches/" + this.coach.id + "/contact";
+    },
   },
 };
 </script>
