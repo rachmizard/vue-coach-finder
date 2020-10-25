@@ -14,7 +14,7 @@
         </base-badge>
         <p class="text-info">Interest? Contact now!</p>
         <p>
-          <base-button mode="btn btn-primary" link :to="redirectCoachContact"
+          <base-button v-scroll-to="'#contactForm'" mode="btn btn-primary" link :to="redirectCoachContact"
             >Contact</base-button
           >
         </p>

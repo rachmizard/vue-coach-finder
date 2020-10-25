@@ -3,11 +3,11 @@ const state = {
 }
 
 const actions = {
-    contachCoach: ({ commit }, payload) => {
+    contactCoach: ({ commit }, payload) => {
         const newRequest = {
             id: Math.random(),
             coachId: payload.coachId,
-            userEmail: payload.userEmail,
+            userEmail: payload.email,
             message: payload.message
         }
         commit('SAVE_REQUEST', newRequest)

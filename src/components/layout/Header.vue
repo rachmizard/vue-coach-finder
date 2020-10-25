@@ -33,7 +33,7 @@
               </li>
               <li>
                 <router-link to="/requests" 
-                  >Requests</router-link
+                  >Your Requests <span class="badge">{{ totalRequests }}</span></router-link>
                 >
               </li>
               <li class="dropdown"></li>
@@ -68,6 +68,17 @@
     </header>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Header',
+  computed: {
+    totalRequests() {
+      return this.$store.getters.getRequests.length
+    }
+  }
+}
+</script>
 
 <style scoped>
 </style>
