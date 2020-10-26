@@ -25,6 +25,8 @@ export default {
     async saveRegistration(payload) {
       this.isLoading = true;
       await this.$store.dispatch('registerCoach', payload);
+      await this.$store.dispatch('signUp', payload);
+      await this.$store.dispatch('setUser');
       this.$router.push('/coaches')
       this.isLoading = false
     },

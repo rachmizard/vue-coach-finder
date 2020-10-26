@@ -36,11 +36,11 @@ import { required, email } from "vuelidate/lib/validators";
 
 export default {
   emits: ["save-registration"],
-  props: ["coachId"],
+  props: ["coachId", "user"],
   data() {
     return {
       form: {
-        email: null,
+        email: this.user.email,
         message: null
       },
     };

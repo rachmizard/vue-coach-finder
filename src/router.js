@@ -12,23 +12,23 @@ const routes = [
     {
         path: '/coaches',
         component: () => import('./pages/coaches/CoachesList.vue'),
-        meta: { requiresAuth: true }
     },
     {
         path: '/coaches/:id',
         component: () => import('./pages/coaches/CoachDetail.vue'),
         props: true,
-        meta: { requiresAuth: true },
         children: [
             {
                 path: 'contact',
                 component: () => import('./pages/requests/ContactCoach.vue'),
-                props: true
+                props: true,
+                meta: { requiresAuth: true },
             },
             {
                 path: 'payment',
                 component: () => import('./pages/requests/VerifyPayment.vue'),
-                props: true
+                props: true,
+                meta: { requiresAuth: true },
             }
         ]
     },
@@ -62,17 +62,13 @@ router.beforeEach((to, from, next) => {
         // if not, redirect to login page.
         if (!store.getters.isLoggedIn) {
             next({
-                path: '/login'
+                path: '/login',
+                query: { redirect: to.fullPath }
             })
         } else {
             next()
         }
     } else {
-        if (store.getters.isLoggedIn) {
-            next({
-                path: '/'
-            })
-        }
         next() // make sure to always call next()!
     }
 })

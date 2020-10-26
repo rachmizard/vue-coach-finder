@@ -1,6 +1,10 @@
 <template>
   <div id="contactForm">
-    <contact-coach-form @save-request="saveContact" :coachId="id"></contact-coach-form>
+    <contact-coach-form
+      @save-request="saveContact"
+      :coachId="id"
+      :user="user"
+    ></contact-coach-form>
   </div>
 </template>
 <script>
@@ -13,11 +17,17 @@ export default {
     contactCoachForm: ContactCoachForm,
   },
   created() {
-    if(this.findRequests) {
+    if (this.findRequests) {
       this.$router.go(-1);
     }
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    user() {
+      return this.$store.getters.getAuthUser;
+    },
     getCoach() {
       const data = this.$store.getters.getCoaches.find(
         (coach) => coach.id === this.id
@@ -34,12 +44,12 @@ export default {
   },
   methods: {
     saveContact(payload) {
-        const data = {
-            email: payload.email,
-            message: payload.message,
-            coach: this.getCoach        
-        }
-        this.$store.dispatch('contactCoach', data)
+      const data = {
+        email: payload.email,
+        message: payload.message,
+        coach: this.getCoach,
+      };
+      this.$store.dispatch("contactCoach", data);
     },
   },
 };

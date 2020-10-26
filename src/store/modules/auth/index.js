@@ -19,8 +19,9 @@ const mutations = {
         state.user = null;
         state.isLoggedIn = false;
         state.credential = false;
+        window.location.reload()
     },
-    'SET_FETCH_USER' (state) {
+    'SET_FETCH_USER'(state) {
         state.lastFetch = new Date().getTime();
     }
 }
@@ -32,10 +33,18 @@ const actions = {
                 commit('SET_CREDENTIAL', res.data);
             })
     },
-    setUser: ({ commit, state }, payload) => {
-        if(!payload.forceRefresh && !getters.fetchShouldUpdate) {
-            return;
+    signUp: ({ commit }, payload) => {
+        const formData = {
+            email: payload.email,
+            password: payload.password,
+            returnSecureToken: true
         }
+        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', formData)
+            .then(res => {
+                commit('SET_CREDENTIAL', res.data);
+            })
+    },
+    setUser: ({ commit, state }) => {
         const request = {
             idToken: state.credential.idToken
         }
@@ -60,7 +69,7 @@ const getters = {
     },
     fetchShouldUpdate: (state) => {
         const lastFetch = state.lastFetch
-        if(!lastFetch) {
+        if (!lastFetch) {
             return true;
         }
         const currentTimeStamp = new Date().getTime()

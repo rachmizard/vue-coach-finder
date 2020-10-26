@@ -8,12 +8,22 @@
 <script>
 import LoginForm from "../../components/auth/LoginForm.vue";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {
       isLoading: false,
     };
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+  },
+  created() {
+    if (this.isLoggedIn) {
+      this.$router.push("/");
+    }
   },
   components: {
     loginForm: LoginForm,
@@ -24,15 +34,20 @@ export default {
       const formData = {
         email: payload.email,
         password: payload.password,
-        returnSecureToken: true
+        returnSecureToken: true,
       };
       try {
         await this.$store.dispatch("login", formData);
         await this.$store.dispatch("setUser", { forceRefresh: true });
       } catch (error) {
-          console.log(error)
+        console.log(error);
       }
-      this.$router.push('/');
+      if (this.$route.query.redirect) {
+        const redirect = this.$route.query.redirect;
+        this.$router.push(redirect);
+      } else {
+        this.$router.push('/');
+      }
       this.isLoading = false;
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header v-if="isLoggedIn && userIdentity">
+    <header>
       <nav class="navbar navbar-inverse">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -34,7 +34,7 @@
                   <span class="sr-only">(current)</span></router-link
                 >
               </li>
-              <li>
+              <li v-if="isLoggedIn && userIdentity">
                 <router-link to="/requests"
                   >Your Requests
                   <span class="badge">{{ isLoading ? `Loading..` : totalRequests }}</span></router-link
@@ -42,7 +42,7 @@
               </li>
               <li class="dropdown"></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul v-if="isLoggedIn && userIdentity" class="nav navbar-nav navbar-right">
               <li class="dropdown">
                 <a
                   href="#"
@@ -106,7 +106,6 @@ export default {
     },
     logout() {
       this.$store.dispatch('logout');
-      // this.$router.push('/login');
     }
   },
 };
