@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios'
+import commonApi from '../../../service/commonApi'
 
 const state = {
     coaches: [],
@@ -23,7 +23,7 @@ const mutations = {
 }
 
 const actions = {
-    registerCoach: ({ commit }, payload) => {
+    registerCoach: ({ commit, rootState }, payload) => {
         const mapping = {
             id: uuidv4(),
             firstName: payload.firstName,
@@ -36,22 +36,21 @@ const actions = {
             photoUrl: 'https://picsum.photos/seed/' + uuidv4() + '/200/300',
         }
 
-        return axios.put(`https://vue-coach-956f1.firebaseio.com/coaches/${mapping.id}.json`, mapping).then(() => {
+        return commonApi.put(`/coaches/${mapping.id}.json`, { params: { auth: rootState.auth.credential.idToken } }, mapping).then(() => {
             commit('REGIST_COACH', mapping)
         });
     },
-    getDetailCoach: ({ commit }, id) => {
-        return axios.get(`https://vue-coach-956f1.firebaseio.com/coaches/${id}.json`).then((res) => {
+    getDetailCoach: ({ commit, rootState }, id) => {
+        return commonApi.get(`/coaches/${id}.json`, { params: { auth: rootState.auth.credential.idToken } }).then((res) => {
             commit('SET_COACH', res.data)
         });
     },
-    setCoaches: ({ commit, getters }, payload) => {
-
+    setCoaches: ({ commit, rootState }, payload) => {
         if(!payload.forceRefresh && !getters.shouldUpdate) {
             return;
         }
 
-        return axios.get('https://vue-coach-956f1.firebaseio.com/coaches.json')
+        return commonApi.get('/coaches.json', { params: { auth: rootState.auth.credential.idToken } })
             .then(res => {
                 const response = res.data
                 const coaches = [];

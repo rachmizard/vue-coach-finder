@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
-import axios from 'axios';
+import commonApi from '../../../service/commonApi'
+
 
 const state = {
     requests: []
 }
 
 const actions = {
-    contactCoach: ({ commit }, payload) => {
+    contactCoach: ({ commit, rootState }, payload) => {
         const newRequest = {
             id: uuidv4(),
             coach: payload.coach,
@@ -15,12 +16,12 @@ const actions = {
             isAccepted: false,
             isPaid: false
         }
-        return axios.put(`https://vue-coach-956f1.firebaseio.com/requests/${newRequest.coach.id}.json`, newRequest).then(() => {
+        return commonApi.put(`/requests/${newRequest.coach.id}.json`, newRequest, { params: { auth: rootState.auth.credential.idToken} }).then(() => {
             commit('SAVE_REQUEST', newRequest)
         })
     },
-    setRequests: ({ commit }) => {
-        return axios.get('https://vue-coach-956f1.firebaseio.com/requests.json').then((res) => {
+    setRequests: ({ commit, rootState }) => {
+        return commonApi.get('/requests.json', { params: { auth: rootState.auth.credential.idToken } }).then((res) => {
             const response = res.data
             const requests = [];
             for (const key in response) {

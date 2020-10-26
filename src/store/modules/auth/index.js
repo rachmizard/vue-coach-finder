@@ -1,4 +1,5 @@
-import axios from 'axios'
+import authApi from '../../../service/authApi'
+import commonApi from '../../../service/commonApi'
 
 const state = {
     isLoggedIn: false,
@@ -28,8 +29,9 @@ const mutations = {
 
 const actions = {
     login: ({ commit }, payload) => {
-        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', payload, { headers: {'Content-Type': 'application/json' } })
+        return authApi.post('/v1/accounts:signInWithPassword?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', payload, { headers: { 'Content-Type': 'application/json' } })
             .then(res => {
+                commonApi.defaults.headers.common['Authorization'] = res.data.idToken;
                 commit('SET_CREDENTIAL', res.data);
             })
     },
@@ -39,7 +41,7 @@ const actions = {
             password: payload.password,
             returnSecureToken: true
         }
-        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', formData)
+        return authApi.post('/v1/accounts:signUp?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', formData)
             .then(res => {
                 commit('SET_CREDENTIAL', res.data);
             })
@@ -48,7 +50,7 @@ const actions = {
         const request = {
             idToken: state.credential.idToken
         }
-        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', request)
+        return authApi.post('/v1/accounts:lookup?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', request)
             .then(res => {
                 const user = res.data.users[0]
                 commit('SET_USER', user);
