@@ -42,8 +42,8 @@
               </li>
               <li class="dropdown"></li>
             </ul>
-            <ul v-if="isLoggedIn && userIdentity" class="nav navbar-nav navbar-right">
-              <li class="dropdown">
+            <ul  class="nav navbar-nav navbar-right">
+              <li v-if="isLoggedIn && userIdentity" class="dropdown">
                 <a
                   href="#"
                   class="dropdown-toggle"
@@ -57,6 +57,9 @@
                   <li><a href="#">Profile</a></li>
                   <li><a href="#" @click="logout">Log out</a></li>
                 </ul>
+              </li>
+              <li v-else>
+                  <base-button link to="/login">Login</base-button>
               </li>
             </ul>
           </div>

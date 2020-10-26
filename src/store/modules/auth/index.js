@@ -19,7 +19,7 @@ const mutations = {
         state.user = null;
         state.isLoggedIn = false;
         state.credential = false;
-        window.location.reload()
+        window.location.href = '/'
     },
     'SET_FETCH_USER'(state) {
         state.lastFetch = new Date().getTime();

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3">
+  <div class="col-md-5">
     <ul class="list-group">
       <li class="list-group-item">
         <div class="center-block">
