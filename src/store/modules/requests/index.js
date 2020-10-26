@@ -12,11 +12,12 @@ const actions = {
             id: uuidv4(),
             coach: payload.coach,
             userEmail: payload.email,
+            userId: rootState.auth.credential.localId,
             message: payload.message,
             isAccepted: false,
             isPaid: false
         }
-        return commonApi.put(`/requests/${newRequest.coach.id}.json`, newRequest, { params: { auth: rootState.auth.credential.idToken} }).then(() => {
+        return commonApi.post(`/requests.json`, newRequest, { params: { auth: rootState.auth.credential.idToken} }).then(() => {
             commit('SAVE_REQUEST', newRequest)
         })
     },
@@ -29,13 +30,21 @@ const actions = {
                     id: response[key].id,
                     coach: response[key].coach,
                     userEmail: response[key].userEmail,
+                    userId: response[key].userId,
                     message: response[key].message,
                     isAccepted: response[key].isAccepted,
                     isPaid: response[key].isPaid
                 };
                 requests.push(coach);
             }
-            commit('SET_REQUESTS', requests)
+
+            const filterByUserId = requests.filter(coach => {
+                return coach.userId === rootState.auth.credential.localId
+            });
+
+            // const requestByCoachId = requests.filter(coach => coach.coach.id == )
+
+            commit('SET_REQUESTS', filterByUserId)
         })
     }
 }

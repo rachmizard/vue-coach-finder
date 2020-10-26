@@ -25,7 +25,7 @@ const mutations = {
 const actions = {
     registerCoach: ({ commit, rootState }, payload) => {
         const mapping = {
-            id: uuidv4(),
+            id: rootState.auth.credential.localId,
             firstName: payload.firstName,
             lastName: payload.lastName,
             email: payload.email,
@@ -36,7 +36,7 @@ const actions = {
             photoUrl: 'https://picsum.photos/seed/' + uuidv4() + '/200/300',
         }
 
-        return commonApi.put(`/coaches/${mapping.id}.json`, { params: { auth: rootState.auth.credential.idToken } }, mapping).then(() => {
+        return commonApi.put(`/coaches/${mapping.id}.json`, mapping, { params: { auth: rootState.auth.credential.idToken } }).then(() => {
             commit('REGIST_COACH', mapping)
         });
     },
@@ -45,7 +45,7 @@ const actions = {
             commit('SET_COACH', res.data)
         });
     },
-    setCoaches: ({ commit, rootState }, payload) => {
+    setCoaches: ({ commit, getters, rootState }, payload) => {
         if(!payload.forceRefresh && !getters.shouldUpdate) {
             return;
         }

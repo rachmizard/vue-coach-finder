@@ -47,6 +47,9 @@ export default {
         .dispatch("login", formData)
         .then(() => {
           this.$store.dispatch("setUser", { forceRefresh: true });
+          this.$store.dispatch("setRequests");
+        })
+        .then(() => {
           if (this.$route.query.redirect) {
             const redirect = this.$route.query.redirect;
             this.$router.push(redirect);
