@@ -38,13 +38,7 @@ const actions = {
                 requests.push(coach);
             }
 
-            const filterByUserId = requests.filter(coach => {
-                return coach.userId === rootState.auth.credential.localId
-            });
-
-            // const requestByCoachId = requests.filter(coach => coach.coach.id == )
-
-            commit('SET_REQUESTS', filterByUserId)
+            commit('SET_REQUESTS', requests)
         })
     }
 }

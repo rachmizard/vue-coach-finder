@@ -1,5 +1,5 @@
 <template>
-  <span style="margin: 1px 3px 5px 3px;" class="badge">
+  <span class="badge">
     <slot></slot>
   </span>
 </template>

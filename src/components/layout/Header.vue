@@ -35,9 +35,8 @@
                 >
               </li>
               <li v-if="isLoggedIn && userIdentity">
-                <router-link to="/requests"
-                  >Your Requests
-                  <span class="badge">{{ isLoading ? `Loading..` : totalRequests }}</span></router-link
+                <router-link  to="/"
+                  >Invitation <base-badge v-if="invitations > 0">{{ isLoading ? 'Loading..'  : invitations }}</base-badge></router-link
                 >
               </li>
               <li class="dropdown"></li>
@@ -55,6 +54,7 @@
                 ></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Profile</a></li>
+                  <li><base-button link to="/requests">My Requests </base-button></li>
                   <li><a href="#" @click="logout">Log out</a></li>
                 </ul>
               </li>
@@ -86,8 +86,8 @@ export default {
     }
   },
   computed: {
-    totalRequests() {
-      return this.$store.getters.getRequests.length;
+    invitations() {
+      return this.$store.getters.getRequests.filter(request => request.coach.id === this.userIdentity.localId).length;
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;

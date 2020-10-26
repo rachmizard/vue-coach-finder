@@ -59,9 +59,18 @@ export default {
     this.loadCoaches();
   },
   computed: {
+    user() {
+      return this.$store.getters.getAuthUser;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
     coaches() {
       const data = this.$store.getters.getCoaches;
       return data.filter((coach) => {
+        if (this.isLoggedIn && coach.id === this.user.localId) {
+          return false;
+        }
         if (this.activeFilters.frontend && coach.areas.includes("frontend")) {
           return true;
         }
@@ -95,11 +104,13 @@ export default {
     },
     async loadCoaches(forceRefresh = false) {
       this.isLoading = true;
-      this.error = null
+      this.error = null;
       try {
-        await this.$store.dispatch("setCoaches", { forceRefresh: forceRefresh }); 
+        await this.$store.dispatch("setCoaches", {
+          forceRefresh: forceRefresh,
+        });
       } catch (error) {
-        this.error = error || 'Something went wrong!'
+        this.error = error || "Something went wrong!";
       }
       this.isLoading = false;
     },

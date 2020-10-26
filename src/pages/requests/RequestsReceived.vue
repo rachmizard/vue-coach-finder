@@ -28,8 +28,13 @@ export default {
   },
   computed: {
     data() {
-      return this.$store.getters.getRequests;
+      return this.$store.getters.getRequests.filter(request => {
+        return request.userId === this.user.localId
+      });
     },
+    user() {
+      return this.$store.getters.getAuthUser;
+    }
   },
   methods: {
     redirectCoachDetail(id) {
