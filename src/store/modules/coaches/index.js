@@ -17,7 +17,7 @@ const mutations = {
     'SET_COACH'(state, payload) {
         state.coach = payload
     },
-    'SET_FETCH_TIMESTAMP' (state) {
+    'SET_FETCH_TIMESTAMP'(state) {
         state.lastFetch = new Date().getTime();
     }
 }
@@ -40,13 +40,14 @@ const actions = {
             commit('REGIST_COACH', mapping)
         });
     },
-    getDetailCoach: ({ commit, rootState }, id) => {
+    getDetailCoach: ({ commit, state, rootState }, id) => {
+        state.coach = null;
         return commonApi.get(`/coaches/${id}.json`, { params: { auth: rootState.auth.credential.idToken } }).then((res) => {
             commit('SET_COACH', res.data)
         });
     },
     setCoaches: ({ commit, getters, rootState }, payload) => {
-        if(!payload.forceRefresh && !getters.shouldUpdate) {
+        if (!payload.forceRefresh && !getters.shouldUpdate) {
             return;
         }
 
@@ -85,7 +86,7 @@ const getters = {
     },
     shouldUpdate: (state) => {
         const lastFetch = state.lastFetch
-        if(!lastFetch) {
+        if (!lastFetch) {
             return true;
         }
         const currentTimeStamp = new Date().getTime()
