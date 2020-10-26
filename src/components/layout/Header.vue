@@ -99,9 +99,9 @@ export default {
       await this.$store.dispatch("setRequests");
       this.isLoading = false;
     },
-    async loadUser() {
+    async loadUser(force = false) {
       this.isLoading = true;
-      await this.$store.dispatch("setUser");
+      await this.$store.dispatch("setUser", { forceRefresh: force });
       this.isLoading = false;
     },
     logout() {

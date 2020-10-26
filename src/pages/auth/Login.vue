@@ -28,7 +28,7 @@ export default {
       };
       try {
         await this.$store.dispatch("login", formData);
-        await this.$store.dispatch("setUser");
+        await this.$store.dispatch("setUser", { forceRefresh: true });
       } catch (error) {
           console.log(error)
       }
