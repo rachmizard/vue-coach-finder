@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header v-if="isLoggedIn && userIdentity">
       <nav class="navbar navbar-inverse">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -43,9 +43,6 @@
               <li class="dropdown"></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li>
-                <router-link to="/register">Register as Coach</router-link>
-              </li>
               <li class="dropdown">
                 <a
                   href="#"
@@ -54,11 +51,11 @@
                   role="button"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  >Account <span class="caret"></span
+                  > {{ userIdentity.email }} <span class="caret"></span
                 ></a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Profile</a></li>
-                  <li><a href="#">Log out</a></li>
+                  <li><a href="#" @click="logout">Log out</a></li>
                 </ul>
               </li>
             </ul>
@@ -80,12 +77,21 @@ export default {
     };
   },
   created() {
-    this.loadRequests();
+    if(this.isLoggedIn) {
+      this.loadRequests();
+      this.loadUser();
+    }
   },
   computed: {
     totalRequests() {
       return this.$store.getters.getRequests.length;
     },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+    userIdentity() {
+      return this.$store.getters.getAuthUser;
+    }
   },
   methods: {
     async loadRequests() {
@@ -93,6 +99,15 @@ export default {
       await this.$store.dispatch("setRequests");
       this.isLoading = false;
     },
+    async loadUser() {
+      this.isLoading = true;
+      await this.$store.dispatch("setUser");
+      this.isLoading = false;
+    },
+    logout() {
+      this.$store.dispatch('logout');
+      // this.$router.push('/login');
+    }
   },
 };
 </script>
