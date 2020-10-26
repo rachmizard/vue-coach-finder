@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <div class="container">
-      <Header />
-      <transition name="slide">
-        <router-view />
-      </transition>
-    </div>
+    <Header />
+    <transition name="router" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -21,18 +19,6 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: "Roboto", sans-serif;
-}
-
-body {
-  margin: 0;
-}
-
 .center-block {
   display: block;
   margin-left: auto;
@@ -40,36 +26,30 @@ body {
   width: 50%;
 }
 
-
-
-.slide-enter-active {
-  animation: slide-in 200ms ease-out forwards;
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 
-.slide-leave-active {
-  animation: slide-out 200ms ease-out forwards;
+.router-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-@keyframes slide-in {
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.router-enter-active {
+  transition: all 0.3s ease-out;
 }
 
-@keyframes slide-out {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
+.router-leave-active {
+  transition: all 0.3s ease-in;
 }
+
+.router-enter-to,
+.router-leaver-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 </style>
 

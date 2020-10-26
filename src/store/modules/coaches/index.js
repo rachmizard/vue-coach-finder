@@ -4,6 +4,7 @@ import axios from 'axios'
 const state = {
     coaches: [],
     coach: null,
+    lastFetch: null
 }
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
     },
     'SET_COACH'(state, payload) {
         state.coach = payload
+    },
+    'SET_FETCH_TIMESTAMP' (state) {
+        state.lastFetch = new Date().getTime();
     }
 }
 
@@ -41,7 +45,12 @@ const actions = {
             commit('SET_COACH', res.data)
         });
     },
-    setCoaches: ({ commit }) => {
+    setCoaches: ({ commit, getters }, payload) => {
+
+        if(!payload.forceRefresh && !getters.shouldUpdate) {
+            return;
+        }
+
         return axios.get('https://vue-coach-956f1.firebaseio.com/coaches.json')
             .then(res => {
                 const response = res.data
@@ -61,6 +70,7 @@ const actions = {
                     coaches.push(coach);
                 }
                 commit('SET_COACHES', coaches)
+                commit('SET_FETCH_TIMESTAMP')
             });
     }
 }
@@ -71,6 +81,14 @@ const getters = {
     },
     getCoach: (state) => {
         return state.coach;
+    },
+    shouldUpdate: (state) => {
+        const lastFetch = state.lastFetch
+        if(!lastFetch) {
+            return true;
+        }
+        const currentTimeStamp = new Date().getTime()
+        return (currentTimeStamp - lastFetch) / 1000 > 60;
     }
 }
 

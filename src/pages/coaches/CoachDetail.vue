@@ -1,7 +1,6 @@
 <template>
-  <div class="center-block">
-    <base-card :title="title">
-      <base-spinner v-if="isLoading"></base-spinner>
+    <base-card class="center-block" :title="title">
+      <base-spinner class="center-block" v-if="isLoading"></base-spinner>
       <base-thumbnail v-if="coach" :photoUrl="photoUrl">
         <h3 class="text-center">{{ fullName }}</h3>
         <p class="text-center">{{ coach.description }}</p>
@@ -34,7 +33,6 @@
         <router-view></router-view>
       </base-thumbnail>
     </base-card>
-  </div>
 </template>
 
 <script>

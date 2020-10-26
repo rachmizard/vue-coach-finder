@@ -84,6 +84,7 @@
         </label>
       </div>
     </div>
+    <base-spinner v-if="isLoading" class="center-block"></base-spinner>
     <base-button mode="btn btn-default">Submit</base-button>
   </form>
 </template>
@@ -95,6 +96,7 @@ export default {
   emits: ["save-registration"],
   data() {
     return {
+      isLoading: false,
       form: {
         firstName: null,
         lastName: null,
@@ -116,11 +118,13 @@ export default {
     },
   },
   methods: {
-    submitRegistration() {
+    async submitRegistration() {
       this.$v.form.$touch();
       if (this.$v.form.$invalid) return;
       this.$v.form.$reset();
-      this.$emit("save-registration", this.form);
+      this.isLoading = true;
+      await this.$emit("save-registration", this.form);
+      this.isLoading = false;
     },
   },
 };

@@ -1,24 +1,26 @@
 <template>
-  <div class="row">
-    <div class="col-md-2">
-      <coach-filter
-        @refresh-coaches="loadCoaches"
-        @change-filter="setFilters"
-      ></coach-filter>
-    </div>
-    <div class="col-md-10">
-      <div v-if="isLoading" style="margin: 20px 20px;">
-        <base-spinner></base-spinner>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <coach-filter
+          @refresh-coaches="loadCoaches"
+          @change-filter="setFilters"
+        ></coach-filter>
       </div>
-      <div class="row" v-if="coaches.length > 0">
-        <coach-item
-          v-for="(coach, index) in coaches"
-          :key="index"
-          :coach="coach"
-        ></coach-item>
-      </div>
-      <div class="row" v-else-if="coaches.length === 0 && !isLoading">
-        <p class="text-muted text-center">Data is not found.</p>
+      <div class="col-md-10">
+        <div v-if="isLoading" style="margin: 20px 20px">
+          <base-spinner class="center-block"></base-spinner>
+        </div>
+        <div class="row" v-if="coaches.length > 0">
+          <coach-item
+            v-for="(coach, index) in coaches"
+            :key="index"
+            :coach="coach"
+          ></coach-item>
+        </div>
+        <div class="row" v-else-if="coaches.length === 0 && !isLoading">
+          <p class="text-muted text-center">Data is not found.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -85,9 +87,9 @@ export default {
       this.loadCoaches();
       this.activeFilters = updatedFilters;
     },
-    async loadCoaches() {
+    async loadCoaches(forceRefresh = false) {
       this.isLoading = true;
-      await this.$store.dispatch("setCoaches");
+      await this.$store.dispatch("setCoaches", { forceRefresh: forceRefresh });
       this.isLoading = false;
     },
   },

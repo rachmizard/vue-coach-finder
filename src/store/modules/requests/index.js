@@ -15,7 +15,7 @@ const actions = {
             isAccepted: false,
             isPaid: false
         }
-        return axios.post('https://vue-coach-956f1.firebaseio.com/requests.json', newRequest).then(() => {
+        return axios.put(`https://vue-coach-956f1.firebaseio.com/requests/${newRequest.coach.id}.json`, newRequest).then(() => {
             commit('SAVE_REQUEST', newRequest)
         })
     },
