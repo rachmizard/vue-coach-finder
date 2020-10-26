@@ -94,9 +94,9 @@ import { required, integer, email } from "vuelidate/lib/validators";
 
 export default {
   emits: ["save-registration"],
+  props: ["isLoading"],
   data() {
     return {
-      isLoading: false,
       form: {
         firstName: null,
         lastName: null,
@@ -122,9 +122,7 @@ export default {
       this.$v.form.$touch();
       if (this.$v.form.$invalid) return;
       this.$v.form.$reset();
-      this.isLoading = true;
-      await this.$emit("save-registration", this.form);
-      this.isLoading = false;
+      this.$emit("save-registration", this.form);
     },
   },
 };

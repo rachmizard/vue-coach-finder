@@ -3,6 +3,7 @@
     <base-card title="Coach Registrastion Form">
       <coach-form-registration
         @save-registration="saveRegistration"
+        :isLoading="isLoading"
       ></coach-form-registration>
     </base-card>
   </div>
@@ -12,13 +13,20 @@ import CoachFormRegistration from "../../components/coaches/CoachFormRegistratio
 
 export default {
   name: "CoachRegister",
+  data() {
+    return {
+      isLoading: false
+    }
+  },
   components: {
     coachFormRegistration: CoachFormRegistration,
   },
   methods: {
     async saveRegistration(payload) {
+      this.isLoading = true;
       await this.$store.dispatch('registerCoach', payload);
       this.$router.push('/coaches')
+      this.isLoading = false
     },
   },
 };
