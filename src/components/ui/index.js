@@ -5,6 +5,7 @@ import BaseBadge from './../ui/BaseBadge.vue';
 import BaseThumbnail from './../ui/BaseThumbnail.vue';
 import BaseTable from './../ui/BaseTable.vue';
 import BaseSpinner from './../ui/BaseSpinner.vue';
+import BaseAlert from './../ui/BaseAlert.vue';
 
 const baseComponent = {
     baseCard: Vue.component('base-card', BaseCard),
@@ -13,6 +14,7 @@ const baseComponent = {
     baseThumbnail: Vue.component('base-thumbnail', BaseThumbnail),
     baseTable: Vue.component('base-table', BaseTable),
     baseSpinner: Vue.component('base-spinner', BaseSpinner),
+    baseAlert: Vue.component('base-alert', BaseAlert),
 }
 
 export default baseComponent;

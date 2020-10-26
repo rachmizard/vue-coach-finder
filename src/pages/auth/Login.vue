@@ -1,6 +1,11 @@
 <template>
   <div style="margin-top: 100px" class="center-block">
     <base-card title="Login as Coach">
+      <div class="col">
+        <base-alert v-if="error !== null" type="danger">
+          <strong>{{ error }}</strong>
+        </base-alert>
+      </div>
       <login-form @save-login="saveLogin" :isLoading="isLoading"></login-form>
     </base-card>
   </div>
@@ -15,6 +20,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -29,26 +35,30 @@ export default {
     loginForm: LoginForm,
   },
   methods: {
-    async saveLogin(payload) {
+    saveLogin(payload) {
       this.isLoading = true;
+      this.error = null;
       const formData = {
         email: payload.email,
         password: payload.password,
         returnSecureToken: true,
       };
-      try {
-        await this.$store.dispatch("login", formData);
-        await this.$store.dispatch("setUser", { forceRefresh: true });
-      } catch (error) {
-        console.log(error);
-      }
-      if (this.$route.query.redirect) {
-        const redirect = this.$route.query.redirect;
-        this.$router.push(redirect);
-      } else {
-        this.$router.push('/');
-      }
-      this.isLoading = false;
+      this.$store
+        .dispatch("login", formData)
+        .then(() => {
+          this.$store.dispatch("setUser", { forceRefresh: true });
+          if (this.$route.query.redirect) {
+            const redirect = this.$route.query.redirect;
+            this.$router.push(redirect);
+          } else {
+            this.$router.push("/");
+          }
+          this.isLoading = false;
+        })
+        .catch((error) => {
+            console.log(error)
+          this.error = error || "Something went wrong!";
+        });
     },
   },
 };

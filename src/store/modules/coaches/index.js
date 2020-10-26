@@ -71,6 +71,8 @@ const actions = {
                 }
                 commit('SET_COACHES', coaches)
                 commit('SET_FETCH_TIMESTAMP')
+            }).catch(err => {
+                throw err;
             });
     }
 }

@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="col">
+      <base-alert v-if="error !== null" type="danger">
+        <strong>{{ error }}</strong>
+      </base-alert>
+    </div>
     <div class="row">
       <div class="col-md-2">
         <coach-filter
@@ -35,6 +40,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -89,7 +95,12 @@ export default {
     },
     async loadCoaches(forceRefresh = false) {
       this.isLoading = true;
-      await this.$store.dispatch("setCoaches", { forceRefresh: forceRefresh });
+      this.error = null
+      try {
+        await this.$store.dispatch("setCoaches", { forceRefresh: forceRefresh }); 
+      } catch (error) {
+        this.error = error || 'Something went wrong!'
+      }
       this.isLoading = false;
     },
   },

@@ -28,7 +28,7 @@ const mutations = {
 
 const actions = {
     login: ({ commit }, payload) => {
-        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', payload)
+        return axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBaZnFV9YtmzM4rXrhsMKF34guNgD0das0', payload, { headers: {'Content-Type': 'application/json' } })
             .then(res => {
                 commit('SET_CREDENTIAL', res.data);
             })
