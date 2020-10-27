@@ -6,6 +6,7 @@ import BaseThumbnail from './../ui/BaseThumbnail.vue';
 import BaseTable from './../ui/BaseTable.vue';
 import BaseSpinner from './../ui/BaseSpinner.vue';
 import BaseAlert from './../ui/BaseAlert.vue';
+import BaseTab from './../ui/BaseTab.vue'
 
 const baseComponent = {
     baseCard: Vue.component('base-card', BaseCard),
@@ -15,6 +16,7 @@ const baseComponent = {
     baseTable: Vue.component('base-table', BaseTable),
     baseSpinner: Vue.component('base-spinner', BaseSpinner),
     baseAlert: Vue.component('base-alert', BaseAlert),
+    baseTab: Vue.component('base-tab', BaseTab),
 }
 
 export default baseComponent;

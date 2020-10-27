@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store';
 
+import NotFound from './pages/NotFound.vue'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -41,13 +43,18 @@ const routes = [
         component: () => import('./pages/auth/Login.vue')
     },
     {
+        path: '/profile',
+        component: () => import('./pages/profile/Profile.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/requests',
         component: () => import('./pages/requests/RequestsReceived.vue'),
         meta: { requiresAuth: true }
     },
     {
         path: '/:notFound(.*)',
-        component: null
+        component: NotFound
     }
 ];
 

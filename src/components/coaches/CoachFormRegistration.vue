@@ -66,23 +66,27 @@
         v-model.trim="form.reTypePassword"
       />
     </div>
-    <div class="form-group">
+    <div class="form-group" :class="{'has-error': $v.form.areas.$error}">
       <label for="areasOfExperienceCheckbox">Areas of Experience</label>
       <div class="checkbox" id="areasOfExperienceCheckbox">
-        <label class="checkbox-inline">
-          <input v-model.trim="form.areas" value="frontend" type="checkbox" /> Front
-          end
+        <label class="checkbox-inline as">
+          <input v-model.trim="form.areas" value="frontend" type="checkbox" />
+          Front end
         </label>
         <label class="checkbox-inline">
-          <input v-model.trim="form.areas" value="backend" type="checkbox" /> Back end
+          <input v-model.trim="form.areas" value="backend" type="checkbox" />
+          Back end
         </label>
         <label class="checkbox-inline">
-          <input v-model.trim="form.areas" value="mobile" type="checkbox" /> Mobile Dev
+          <input v-model.trim="form.areas" value="mobile" type="checkbox" />
+          Mobile Dev
         </label>
         <label class="checkbox-inline">
-          <input v-model.trim="form.areas" value="ui/ux" type="checkbox" /> UI/UX
+          <input v-model.trim="form.areas" value="ui/ux" type="checkbox" />
+          UI/UX
         </label>
       </div>
+      <p v-if="error" class="text-danger">{{ error }}</p>
     </div>
     <base-spinner v-if="isLoading" class="center-block"></base-spinner>
     <base-button mode="btn btn-default">Submit</base-button>
@@ -97,6 +101,7 @@ export default {
   props: ["isLoading"],
   data() {
     return {
+      error: null,
       form: {
         firstName: null,
         lastName: null,
@@ -104,7 +109,7 @@ export default {
         email: null,
         phone: null,
         reTypePassword: null,
-        areas: []
+        areas: [],
       },
     };
   },
@@ -115,10 +120,16 @@ export default {
       password: { required },
       email: { required, email },
       phone: { required, integer },
+      areas: { required }
     },
   },
   methods: {
     async submitRegistration() {
+      this.error = null;
+      if (!this.form.areas.length > 0) {
+        this.error = "Select your experience at least one!";
+        return;
+      }
       this.$v.form.$touch();
       if (this.$v.form.$invalid) return;
       this.$v.form.$reset();

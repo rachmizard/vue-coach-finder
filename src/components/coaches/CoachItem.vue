@@ -1,31 +1,33 @@
 <template>
   <div class="col-md-5">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <div class="center-block">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <p class="text-center">
           <img
-            class="img-thumbnail"
-            width="100"
-            height="100"
+            class="img-circle"
+            width="120"
+            height="120"
             :src="coach.photoUrl"
             alt=""
           />
-        </div>
-      </li>
-      <li class="list-group-item">
-        <strong>Full Name : </strong> {{ fullName }}
-      </li>
-      <li class="list-group-item">
-        <strong>Hourly Rate : </strong>{{ coach.hourlyRate | currency }}
-      </li>
-      <li class="list-group-item" style="height: 100px">
+        </p>
+      </div>
+      <div class="panel-body">
+        <h4 class="text-center"><strong>{{ fullName }}</strong></h4>
+      </div>
+      <div class="panel-footer">
         <div class="row">
-          <base-badge v-for="(area, index) in coach.areas" :key="index">
-            {{ area }}
-          </base-badge>
+          <div class="col-md-5">
+            <p>
+              <strong>Hourly Rate : </strong>{{ coach.hourlyRate | currency }}
+            </p>
+          </div>
+          <div class="col-md-5">
+            <base-badge v-for="(area, index) in coach.areas" :key="index">
+              {{ area }}
+            </base-badge>
+          </div>
         </div>
-      </li>
-      <li class="list-group-item">
         <div class="btn-group" role="group" aria-label="...">
           <base-button
             mode="btn btn-warning"
@@ -44,8 +46,8 @@
             >View Detail</base-button
           >
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 <script>

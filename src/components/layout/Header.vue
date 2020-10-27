@@ -53,7 +53,7 @@
                   > {{ userIdentity.email }} <span class="caret"></span
                 ></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Profile</a></li>
+                  <li><base-button link to="/profile">Profile</base-button></li>
                   <li><base-button link to="/requests">My Requests </base-button></li>
                   <li><a href="#" @click="logout">Log out</a></li>
                 </ul>

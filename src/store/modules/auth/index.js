@@ -1,5 +1,6 @@
 import authApi from '../../../service/authApi'
 import commonApi from '../../../service/commonApi'
+import router from './../../../router.js'
 
 const state = {
     isLoggedIn: false,
@@ -20,6 +21,7 @@ const mutations = {
         state.user = null;
         state.isLoggedIn = false;
         state.credential = false;
+        router.push('/login');
     },
     'SET_FETCH_USER'(state) {
         state.lastFetch = new Date().getTime();
