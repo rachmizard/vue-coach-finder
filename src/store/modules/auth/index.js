@@ -2,10 +2,19 @@ import authApi from '../../../service/authApi'
 import commonApi from '../../../service/commonApi'
 import router from './../../../router.js'
 
+const initialState = () => ({
+    isLoggedIn: false,
+    user: {},
+    credential: {},
+    idToken: null,
+    lastFetch: null
+})
+
 const state = {
     isLoggedIn: false,
-    user: null,
-    credential: null,
+    user: {},
+    credential: {},
+    idToken: null,
     lastFetch: null
 }
 
@@ -13,14 +22,14 @@ const mutations = {
     'SET_CREDENTIAL'(state, payload) {
         state.credential = payload
         state.isLoggedIn = true;
+        state.idToken = payload.idToken
     },
     'SET_USER'(state, payload) {
         state.user = payload
     },
     'CLEAR_CREDENTIAL'(state) {
-        state.user = null;
-        state.isLoggedIn = false;
-        state.credential = false;
+        const initial = initialState()
+        Object.keys(initial).forEach(key => { state[key] = initial[key] })
         router.push('/login');
     },
     'SET_FETCH_USER'(state) {

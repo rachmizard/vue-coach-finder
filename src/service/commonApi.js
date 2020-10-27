@@ -1,5 +1,6 @@
 import axios from 'axios';
 import router from './../router.js';
+import store from './../store';
 
 const commonApi = axios.create({
   baseURL: 'https://vue-coach-956f1.firebaseio.com',
@@ -20,10 +21,7 @@ error => {
     if (error.response.status) {
       switch (error.response.status) {
         case 401:
-          router.replace({
-            path: "/login",
-            query: { redirect: router.currentRoute.fullPath }
-          });
+          store.dispatch('logout')
           break;
         case 404:
           alert('page not exist');

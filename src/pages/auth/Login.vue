@@ -59,7 +59,12 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-            console.log(error)
+          setTimeout(() => {
+            this.error = null
+          }, 3000)
+          setTimeout(() => {
+            this.isLoading = false
+          }, 1000)
           this.error = error || "Something went wrong!";
         });
     },

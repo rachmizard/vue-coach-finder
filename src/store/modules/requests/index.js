@@ -17,12 +17,12 @@ const actions = {
             isAccepted: false,
             isPaid: false
         }
-        return commonApi.post(`/requests.json`, newRequest, { params: { auth: rootState.auth.credential.idToken} }).then(() => {
+        return commonApi.post(`/requests.json`, newRequest, { params: { auth: rootState.auth.idToken} }).then(() => {
             commit('SAVE_REQUEST', newRequest)
         })
     },
     setRequests: ({ commit, rootState }) => {
-        return commonApi.get('/requests.json', { params: { auth: rootState.auth.credential.idToken } }).then((res) => {
+        return commonApi.get('/requests.json', { params: { auth: rootState.auth.idToken } }).then((res) => {
             const response = res.data
             const requests = [];
             for (const key in response) {

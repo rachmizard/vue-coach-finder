@@ -36,13 +36,13 @@ const actions = {
             photoUrl: 'https://picsum.photos/seed/' + uuidv4() + '/200/300',
         }
 
-        return commonApi.put(`/coaches/${mapping.id}.json`, mapping, { params: { auth: rootState.auth.credential.idToken } }).then(() => {
+        return commonApi.put(`/coaches/${mapping.id}.json`, mapping, { params: { auth: rootState.auth.idToken } }).then(() => {
             commit('REGIST_COACH', mapping)
         });
     },
     getDetailCoach: ({ commit, state, rootState }, id) => {
         state.coach = null;
-        return commonApi.get(`/coaches/${id}.json`, { params: { auth: rootState.auth.credential.idToken } }).then((res) => {
+        return commonApi.get(`/coaches/${id}.json`, { params: { auth: rootState.auth.idToken } }).then((res) => {
             commit('SET_COACH', res.data)
         });
     },
@@ -51,7 +51,7 @@ const actions = {
             return;
         }
 
-        return commonApi.get('/coaches.json', { params: { auth: rootState.auth.credential.idToken } })
+        return commonApi.get('/coaches.json', { params: { auth: rootState.auth.idToken } })
             .then(res => {
                 const response = res.data
                 const coaches = [];

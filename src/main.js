@@ -6,12 +6,17 @@ import store from './store';
 import commonApi from './service/commonApi';
 import authApi from './service/authApi';
 import baseComponent from './components/ui/index';
+import 'animate.css';
+
+import VuePageTransition from 'vue-page-transition'
+
 
 const VueScrollTo = require('vue-scrollto');
 
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 Vue.use(VueScrollTo)
+Vue.use(VuePageTransition)
 
 Vue.filter('currency', (value) => {
   return '$' + value.toLocaleString();
