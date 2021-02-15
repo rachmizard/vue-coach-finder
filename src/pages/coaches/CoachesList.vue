@@ -1,5 +1,9 @@
 <template>
-  <div class="container">
+  <div
+    class="container"
+    v-infinite-scroll="loadMore"
+    infinite-scroll-distance="100"
+  >
     <div class="col">
       <base-alert v-if="error !== null" type="danger">
         <strong>{{ error }}</strong>
@@ -26,6 +30,9 @@
         <div class="row" v-else-if="coaches.length === 0 && !isLoading">
           <p class="text-muted text-center">Data is not found.</p>
         </div>
+        <div v-if="isLoading" style="margin: 20px 20px">
+          <base-spinner></base-spinner>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +41,7 @@
 <script>
 import CoachItem from "./../../components/coaches/CoachItem.vue";
 import CoachFilter from "./../../components/coaches/CoachFilter.vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "CoachesList",
@@ -101,6 +109,29 @@ export default {
     setFilters(updatedFilters) {
       this.loadCoaches();
       this.activeFilters = updatedFilters;
+    },
+    loadMore() {
+      this.isLoading = true;
+      if (this.coaches.length > 30) {
+        this.isLoading = false;
+        return;
+      }
+      const coach = {
+        id: uuidv4(),
+        firstName: "Mizard",
+        lastName: "Apa",
+        email: "Zard@gmail.com",
+        phone: "08929283932",
+        areas: ["frontend"],
+        description: "AWKWKW",
+        hourlyRate: 10,
+        photoUrl:
+          "https://picsum.photos/seed/" + Math.random() * 10 * 20 + "/200/300",
+      };
+      this.$store.commit("REGIST_COACH", coach);
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 2000);
     },
     async loadCoaches(forceRefresh = false) {
       this.isLoading = true;

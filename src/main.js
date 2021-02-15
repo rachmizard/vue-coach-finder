@@ -10,13 +10,14 @@ import 'animate.css';
 
 import VuePageTransition from 'vue-page-transition'
 
-
+const infiniteScroll =  require('vue-infinite-scroll');
 const VueScrollTo = require('vue-scrollto');
 
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 Vue.use(VueScrollTo)
 Vue.use(VuePageTransition)
+Vue.use(infiniteScroll)
 
 Vue.filter('currency', (value) => {
   return '$' + value.toLocaleString();

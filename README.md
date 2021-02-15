@@ -1,5 +1,5 @@
 # vue-coach-finder
-
+Simple Application Coach Finder using Vue SPA & Firebase
 ## Project setup
 ```
 npm install
